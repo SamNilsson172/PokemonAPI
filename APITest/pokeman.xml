@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<Pokemon xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <name>daddy</name>
+  <hp>3</hp>
+  <def>2</def>
+  <atk>1</atk>
+  <type>0</type>
+</Pokemon>
