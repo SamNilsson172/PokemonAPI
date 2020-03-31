@@ -9,7 +9,7 @@ public class Pokemon
     public int def;
     public int atk;
     public int type;
-    public Move[] learnableMoves;
+    //public Move[] learnableMoves;
 
     //make public creation method
 }
@@ -25,7 +25,7 @@ public class PartyPokemon : Pokemon
     int xp;
     public List<PartyMove> moves = new List<PartyMove>(); //do method that checks length in array, move != null
 
-    public PartyPokemon(int _lvl, int _xp)
+    public PartyPokemon(int _lvl, int _xp, Pokemon p)
     {
         nickName = name;
         currentHp = hp;
@@ -33,6 +33,13 @@ public class PartyPokemon : Pokemon
         currentAtk = atk;
         lvl = _lvl;
         xp = _xp;
+
+        atk = p.atk;
+        def = p.def;
+        hp = p.hp;
+        name = p.name;
+        //learnableMoves = p.learnableMoves;
+        type = p.type;
     }
 
     public void Heal()
@@ -53,6 +60,10 @@ public class PartyPokemon : Pokemon
             return true;
         }
         else return false;
-
     }
+}
+
+public class AllPokemon
+{
+    public static List<Pokemon> pokemon = new List<Pokemon>();
 }
