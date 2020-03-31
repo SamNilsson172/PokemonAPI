@@ -14,7 +14,7 @@ public class GetPokeman : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Get();
+        //Get();
     }
 
     public void Get()
@@ -26,7 +26,7 @@ public class GetPokeman : MonoBehaviour
         {
             pokemonSerialized = client.DownloadString("https://localhost:44307/api/pokemon");
         }
-
+        Debug.Log(pokemonSerialized);
         pokeman = DeserializePokemon(pokemonSerialized);
 
 

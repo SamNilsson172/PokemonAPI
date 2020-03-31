@@ -14,8 +14,11 @@ namespace PokemonAPI.Controllers
     [ApiController]
     public class PokemonController : ControllerBase
     {
+
         static XmlSerializer pokemonSerializer = new XmlSerializer(typeof(Pokemon));
         static List<Pokemon> AllPokemon = new List<Pokemon>();
+
+        static List<string> strings = new List<string>();
 
         [HttpGet]
         public string GetLatest() //gets latest pokemon, raplace with get all pokemon later
@@ -30,12 +33,6 @@ namespace PokemonAPI.Controllers
             }); ;
 
             return SerializePokemon(AllPokemon[AllPokemon.Count - 1]);
-        }
-
-        [HttpPost]
-        public void NewPokemon(string newPokemon) //adds new pokemon to all pokemon
-        {
-            AllPokemon.Add(DeserializePokemon(newPokemon));
         }
 
         string SerializePokemon(Pokemon p) //makes string from pokemon
