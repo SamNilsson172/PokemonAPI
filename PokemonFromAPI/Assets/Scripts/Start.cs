@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Xml.Serialization;
 using System.IO;
@@ -8,7 +6,7 @@ using System.Net;
 
 public class Start : MonoBehaviour
 {
-    XmlSerializer pokemonSerializer = new XmlSerializer(typeof(List<Pokemon>));
+    XmlSerializer pokemonSerializer = new XmlSerializer(typeof(Pokemon[]));
     public void Play()
     {
         string pokemonSerialized;
@@ -17,14 +15,14 @@ public class Start : MonoBehaviour
             pokemonSerialized = client.DownloadString("https://localhost:44307/api/pokemon");
         }
         AllPokemon.pokemon = DeserializePokemon(pokemonSerialized);
-        SceneManager.LoadScene(2,LoadSceneMode.Single);
+        SceneManager.LoadScene(2, LoadSceneMode.Single);
     }
 
-    List<Pokemon> DeserializePokemon(string s) //makes pokemon from string
+    Pokemon[] DeserializePokemon(string s) //makes pokemon from string
     {
         using (Stream fs = GenerateStreamFromString(s)) //https://sites.google.com/view/csharp-referens/filhantering/serialisering?authuser=0
         {
-            return (List<Pokemon>)pokemonSerializer.Deserialize(fs);
+            return (Pokemon[])pokemonSerializer.Deserialize(fs);
         }
     }
 

@@ -69,6 +69,7 @@
     <Compile Include="Assets\Scripts\Party.cs" />
     <Compile Include="Assets\Scripts\Pokemon.cs" />
     <Compile Include="Assets\Scripts\Start.cs" />
+    <Compile Include="Assets\Scripts\UpdateUI.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>C:/Users/sam.nilsson/Desktop/Skolarbete/PokemonAPI/PokemonFromAPI/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>

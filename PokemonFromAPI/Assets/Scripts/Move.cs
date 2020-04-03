@@ -4,31 +4,76 @@ using UnityEngine;
 
 public class Move
 {
-    public string Name { get; private set; }
-    public int Dmg { get; private set; }
-    public int Effect { get; private set; }
-    public int Pp { get; private set; }
-    public int Type { get; private set; }
-    public int LearnAt { get; private set; }
+    public string name;
+    public int dmg;
+    public int effect;
+    public int pp;
+    public int type;
+    public int learnAt;
+    public bool learnt;
 
-    public Move(string _name, int _dmg, int _effect, int _pp, int _type, int _learnAt)
+    public void Create(string _name, int _dmg, int _effect, int _pp, int _type, int _learnAt)
     {
-        Name = _name;
-        Dmg = _dmg;
-        Effect = _effect;
-        Pp = _pp;
-        Type = _type;
-        LearnAt = _learnAt;
+        name = _name;
+        dmg = _dmg;
+        effect = _effect;
+        pp = _pp;
+        type = _type;
+        learnAt = _learnAt;
+        learnt = false;
+    }
+
+    public string GetName()
+    {
+        return name;
+    }
+    public int GetDmg()
+    {
+        return dmg;
+    }
+    public int GetEffect()
+    {
+        return effect;
+    }
+    public int GetPp()
+    {
+        return pp;
+    }
+    public int GetMoveType()
+    {
+        return type;
+    }
+
+    public int GetLearnAt()
+    {
+        return learnAt;
+    }
+
+    public bool GetLearnt()
+    {
+        return learnt;
+    }
+
+    public void SetLearnt(bool set)
+    {
+        learnt = set;
     }
 }
 
-public class PartyMove : Move //not needed for API server, put in game only?
+public class PartyMove : Move
 {
     int currentPp;
 
-    public PartyMove(Move baseMove) : base(baseMove.Name, baseMove.Dmg, baseMove.Effect, baseMove.Pp, baseMove.Type, baseMove.LearnAt)
+    public PartyMove(Move m)
     {
-        currentPp = baseMove.Pp;
+        name = m.GetName();
+        dmg = m.GetDmg();
+        effect = m.GetEffect();
+        pp = m.GetPp();
+        type = m.GetMoveType();
+        learnAt = m.GetLearnAt();
+
+        currentPp = pp;
     }
 
     public int? Use()
@@ -36,7 +81,7 @@ public class PartyMove : Move //not needed for API server, put in game only?
         if (currentPp > 0)
         {
             currentPp--;
-            return Dmg;
+            return dmg;
         }
         else
         {
@@ -46,6 +91,6 @@ public class PartyMove : Move //not needed for API server, put in game only?
 
     public void Fill()
     {
-        currentPp = Pp;
+        currentPp = pp;
     }
 }

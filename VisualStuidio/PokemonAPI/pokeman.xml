@@ -1,8 +1,7 @@
 <?xml version="1.0"?>
-<ArrayOfPokemon xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <Pokemon>
-    <name>BigBoy</name>
-    <hp>5</hp>
+<Pokemon xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:nil="true" />on />
+  <Pokemon />
+</ArrayOfPokemon></hp>
     <def>5</def>
     <atk>5</atk>
     <type>1</type>

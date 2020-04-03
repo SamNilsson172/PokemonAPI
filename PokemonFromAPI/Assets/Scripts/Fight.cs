@@ -7,6 +7,7 @@ public class Fight : MonoBehaviour
 {
     public Text eventText;
     public Button[] buttons;
+    public UpdateUI updateUI;
     public enum State { wait, atk, bag, swap, run, check, end, newMove }
     int state;
     public int nextState;
@@ -62,7 +63,6 @@ public class Fight : MonoBehaviour
     {
         if (!waitForInput)
         {
-
             UIWaitDisplay(true); //show waiting UI
             currentTime += Time.deltaTime;
             if (currentTime >= waitTime)
@@ -99,13 +99,13 @@ public class Fight : MonoBehaviour
         }
         if (!myTurn)
         {
-            opponentPokemon.Attack(Random.Range(0, opponentPokemon.moves.Count), playerPokemon);
+            opponentPokemon.Attack(Random.Range(0, opponentPokemon.moves.Length), playerPokemon);
             nextState = (int)State.wait;
             eventText.text = "Opponent attacked";
         }
         myTurn = !myTurn;
         waitTime = 1;
-        state = (int)State.wait;
+        state = (int)State.check; //wait is always run after check
     }
 
     void Run()
@@ -126,18 +126,18 @@ public class Fight : MonoBehaviour
     PartyPokemon opponentPokemon;
     void Check()
     {
+        state = (int)State.wait;
         float totOpponentHp = 0;
         foreach (PartyPokemon p in Party.opponentParty)
         {
-            totOpponentHp += p.currentHp;
-            if (p.currentHp > 0)
+            totOpponentHp += p.CurrentHp;
+            if (p.CurrentHp > 0)
             {
                 opponentPokemon = p;
             }
         }
         if (totOpponentHp <= 0)
         {
-            state = (int)State.wait;
             waitTime = 1;
             eventText.text = "Player won";
             nextState = (int)State.end;
@@ -146,19 +146,19 @@ public class Fight : MonoBehaviour
         float totPlayerHp = 0;
         foreach (PartyPokemon p in Party.playerParty)
         {
-            totPlayerHp += p.currentHp;
-            if (p.currentHp > 0)
+            totPlayerHp += p.CurrentHp;
+            if (p.CurrentHp > 0)
             {
                 playerPokemon = p;
             }
         }
         if (totPlayerHp <= 0)
         {
-            state = (int)State.wait;
             waitTime = 1;
             eventText.text = "Opponent won";
             nextState = (int)State.end;
         }
+        updateUI.UIUpdate(playerPokemon, opponentPokemon);
     }
 
     void End()

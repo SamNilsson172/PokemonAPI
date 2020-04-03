@@ -12,11 +12,6 @@ public class Party
     public static void TestPokemans()
     {
         playerParty.Add(new PartyPokemon(1, 1, AllPokemon.pokemon[0]));
-        playerParty[0].currentHp = 1;
-        playerParty[0].moves.Add(new PartyMove(new Move("hug", 0, 0, 10000, 0, 0)));
-        opponentParty.Add(new PartyPokemon(1, 1, AllPokemon.pokemon[0]));
-        opponentParty[0].currentHp = 1;
-        opponentParty[0].moves.Add(new PartyMove(new Move("hug", 0, 0, 10000, 0, 0)));
-
+        opponentParty.Add(new PartyPokemon(1, 1, AllPokemon.pokemon[1]));
     }
 }
