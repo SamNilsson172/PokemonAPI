@@ -21,19 +21,25 @@ namespace PokemonAPI.Controllers
         [HttpGet]
         public string Get() //gets latest pokemon
         {
-            Move[] bdd = new Move[2];
-            bdd[0] = new Move();
-            bdd[0].Create("Tackle", 10, 0, 40, 1, 0);
-            bdd[1] = new Move();
-            bdd[1].Create("Murder", 1000000, 1, 1, 1, 0);
+            Move[] bulb = new Move[2];
+            bulb[0] = new Move();
+            bulb[0].Create("Tackle", 10, 0, 40, 0, 0);
+            bulb[1] = new Move();
+            bulb[1].Create("VineWhip", 20, 0, 15, 1, 0);
+            byte[] imgBack = System.IO.File.ReadAllBytes("C:\\Users\\sam.nilsson\\Desktop\\Skolarbete\\PokemonAPI\\Images\\BulbasaurBack.png"); //https://stackoverflow.com/questions/8084590/how-to-load-image-from-sql-server-into-picture-box
+            byte[] imgFront = System.IO.File.ReadAllBytes("C:\\Users\\sam.nilsson\\Desktop\\Skolarbete\\PokemonAPI\\Images\\BulbasaurFront.png");
             AllPokemon[0] = new Pokemon();
-            AllPokemon[0].Create("BigDaddy", 1000, 10, 10, 1, bdd);
+            AllPokemon[0].Create("Bulbasaur", 50, 10, 10, 1, bulb, imgBack, imgFront);
 
-            Move[] bt = new Move[1];
-            bt[0] = new Move();
-            bt[0].Create("Tackle", 10, 0, 40, 1, 0);
+            Move[] charm = new Move[2];
+            charm[0] = new Move();
+            charm[0].Create("Tackle", 10, 0, 40, 1, 0);
+            charm[1] = new Move();
+            charm[1].Create("Ember", 20, 0, 15, 2, 0);
+            imgBack = System.IO.File.ReadAllBytes("C:\\Users\\sam.nilsson\\Desktop\\Skolarbete\\PokemonAPI\\Images\\CharmanderBack.png");
+            imgFront = System.IO.File.ReadAllBytes("C:\\Users\\sam.nilsson\\Desktop\\Skolarbete\\PokemonAPI\\Images\\CharmanderFront.png");
             AllPokemon[1] = new Pokemon();
-            AllPokemon[1].Create("Beta", 100, 10, 10, 1, bt);
+            AllPokemon[1].Create("Charmander", 50, 10, 10, 1, charm, imgBack, imgFront);
 
             return SerializePokemon(AllPokemon);
         }

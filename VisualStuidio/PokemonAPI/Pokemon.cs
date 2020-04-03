@@ -12,8 +12,11 @@ namespace PokemonAPI
         public int atk;
         public int type;
         public Move[] learnableMoves;
+        public byte[] imageFront;
+        public byte[] imageBack;
 
-        public void Create(string _name, int _hp, int _def, int _atk, int _type, Move[] _learnableMoves) //can't have constructor for xml serialization
+
+        public void Create(string _name, int _hp, int _def, int _atk, int _type, Move[] _learnableMoves, byte[] _imageBack, byte[] _imageFront) //can't have constructor for xml serialization
         {
             name = _name;
             hp = _hp;
@@ -21,6 +24,8 @@ namespace PokemonAPI
             atk = _atk;
             type = _type;
             learnableMoves = _learnableMoves;
+            imageBack = _imageBack;
+            imageFront = _imageFront;
         }
 
         public string GetName()
@@ -46,6 +51,14 @@ namespace PokemonAPI
         public Move[] GetLearnableMoves()
         {
             return learnableMoves;
+        }
+        public byte[] GetImageFront()
+        {
+            return imageFront;
+        }
+        public byte[] GetImageBack()
+        {
+            return imageBack;
         }
     }
 }
