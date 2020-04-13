@@ -76,7 +76,7 @@ public class PartyMove : Move
         currentPp = pp;
     }
 
-    public int? Use()
+    public int? Use() //call when using a move
     {
         if (currentPp > 0)
         {

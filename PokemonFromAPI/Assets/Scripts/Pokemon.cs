@@ -6,7 +6,7 @@
     public int atk;
     public int type;
     public Move[] learnableMoves;
-    public byte[] imageFront;
+    public byte[] imageFront; //byte array for images
     public byte[] imageBack;
 
 
@@ -132,7 +132,7 @@ public class PartyPokemon : Pokemon
 
     public void LearnNewMove()
     {
-        for (int i = 0; i < learnableMoves.Length; i++)//loop throug all learnable moves
+        for (int i = 0; i < learnableMoves.Length; i++)//loop through all learnable moves
         {
             if (learnableMoves[i].GetLearnAt() <= lvl && !learnableMoves[i].GetLearnt()) //if your highenough level to learn the move and haven't leant it
             {
@@ -140,12 +140,26 @@ public class PartyPokemon : Pokemon
                 {
                     if (moves[ii] == null)
                     {
-                        moves[ii] = new PartyMove(learnableMoves[i]);
+                        moves[ii] = new PartyMove(learnableMoves[i]); //set slot to move
                         learnableMoves[i].SetLearnt(true);
+                        break; //don't fill all slots
                     }
                 }// add outcome for if all slots are full
             }
         }
+    }
+
+    public int KnownMoves() //gets lenth of moves excluding null
+    {
+        int move = 0;
+        foreach (Move m in moves)
+        {
+            if (m != null)
+            {
+                move++;
+            }
+        }
+        return move;
     }
 
     public void Heal()
@@ -160,7 +174,7 @@ public class PartyPokemon : Pokemon
     public bool Attack(int move, PartyPokemon defender)
     {
         int? dmg = moves[move].Use();
-        if (dmg != null)
+        if (dmg != null) //if all the moves pp is used up
         {
             defender.CurrentHp -= (float)dmg + CurrentAtk / defender.CurrentDef;
             return true;
@@ -171,5 +185,5 @@ public class PartyPokemon : Pokemon
 
 public class AllPokemon
 {
-    public static Pokemon[] pokemon;
+    public static Pokemon[] pokemon; //store all pokemon
 }

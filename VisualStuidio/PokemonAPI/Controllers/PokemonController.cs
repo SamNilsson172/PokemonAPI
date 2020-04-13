@@ -15,12 +15,12 @@ namespace PokemonAPI.Controllers
     [ApiController]
     public class PokemonController : ControllerBase
     {
-
         Pokemon[] AllPokemon = new Pokemon[2];
 
         [HttpGet]
-        public string Get() //gets latest pokemon
+        public string Get() //gets all pokemon
         {
+            //create pokemon and moves
             Move[] bulb = new Move[2];
             bulb[0] = new Move();
             bulb[0].Create("Tackle", 10, 0, 40, 0, 0);
@@ -58,7 +58,7 @@ namespace PokemonAPI.Controllers
 
         string SerializePokemon(Pokemon[] p) //makes string from pokemon
         {
-            using (MemoryStream ms = new MemoryStream()) //https://sites.google.com/view/csharp-referens/filhantering/serialisering?authuser=0
+            using (MemoryStream ms = new MemoryStream()) //https://sites.google.com/view/csharp-referens/filhantering/serialisering?authuser=0, use mem stream no need for files
             {
                 pokemonSerializer.Serialize(ms, p);
                 return Encoding.ASCII.GetString(ms.ToArray()); //https://stackoverflow.com/questions/3542237/quick-way-to-get-the-contents-of-a-memorystream-as-an-ascii-string
