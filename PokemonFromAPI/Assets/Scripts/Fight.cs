@@ -90,13 +90,14 @@ public class Fight : MonoBehaviour
     {
         if (myTurn)
         {
-            playerPokemon.Attack(atkIndex, opponentPokemon);
+            playerPokemon.Attack(atkIndex, opponentPokemon, Effectivness(playerPokemon.moves[atkIndex].type, opponentPokemon.type));
             nextState = (int)State.atk; //player attacks first so let opponent attack after
             eventText.text = "Player attacked";
         }
         if (!myTurn)
         {
-            opponentPokemon.Attack(Random.Range(0, opponentPokemon.KnownMoves()), playerPokemon); //use random move
+            int opponentMove = Random.Range(0, opponentPokemon.KnownMoves()); //use random move
+            opponentPokemon.Attack(opponentMove, playerPokemon, Effectivness(opponentPokemon.moves[opponentMove].type, playerPokemon.type));
             nextState = (int)State.wait;
             eventText.text = "Opponent attacked";
         }
@@ -183,5 +184,45 @@ public class Fight : MonoBehaviour
             foreach (Button b in buttons) //can click buttons
                 b.interactable = true;
         }
+    }
+
+    enum Types { normal, grass, fire, water }
+    float Effectivness(int atk, int def)
+    {
+        float effectivness = 1;
+        switch (atk)
+        {
+            case (int)Types.normal:
+                effectivness = 1;
+                break;
+
+            case (int)Types.grass:
+                if (def == (int)Types.water) //super effective
+                    effectivness = 1.5f;
+                if (def == (int)Types.normal || def == (int)Types.grass) //normal effective
+                    effectivness = 1;
+                if (def == (int)Types.fire) //not very effective
+                    effectivness = .5f;
+                break;
+
+            case (int)Types.fire:
+                if (def == (int)Types.grass) //super effective
+                    effectivness = 1.5f;
+                if (def == (int)Types.normal || def == (int)Types.fire) //normal effective
+                    effectivness = 1;
+                if (def == (int)Types.water) //not very effective
+                    effectivness = .5f;
+                break;
+
+            case (int)Types.water:
+                if (def == (int)Types.fire) //super effective
+                    effectivness = 1.5f;
+                if (def == (int)Types.normal || def == (int)Types.water) //normal effective
+                    effectivness = 1;
+                if (def == (int)Types.grass) //not very effective
+                    effectivness = .5f;
+                break;
+        }
+        return effectivness;
     }
 }

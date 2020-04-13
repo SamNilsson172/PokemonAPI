@@ -15,7 +15,7 @@ namespace PokemonAPI.Controllers
     [ApiController]
     public class PokemonController : ControllerBase
     {
-        Pokemon[] AllPokemon = new Pokemon[2];
+        Pokemon[] AllPokemon = new Pokemon[3];
 
         [HttpGet]
         public string Get() //gets all pokemon
@@ -33,23 +33,23 @@ namespace PokemonAPI.Controllers
 
             Move[] charm = new Move[2];
             charm[0] = new Move();
-            charm[0].Create("Tackle", 10, 0, 40, 1, 0);
+            charm[0].Create("Tackle", 10, 0, 40, 0, 0);
             charm[1] = new Move();
             charm[1].Create("Ember", 20, 0, 15, 2, 0);
             imgBack = System.IO.File.ReadAllBytes(Directory.GetCurrentDirectory() + "\\Images\\CharmanderBack.png");
             imgFront = System.IO.File.ReadAllBytes(Directory.GetCurrentDirectory() + "\\Images\\CharmanderFront.png");
             AllPokemon[1] = new Pokemon();
-            AllPokemon[1].Create("Charmander", 50, 10, 10, 1, charm, imgBack, imgFront);
+            AllPokemon[1].Create("Charmander", 50, 10, 10, 2, charm, imgBack, imgFront);
 
             Move[] squirt = new Move[2];
             squirt[0] = new Move();
-            squirt[0].Create("Tackle", 10, 0, 40, 1, 0);
+            squirt[0].Create("Tackle", 10, 0, 40, 0, 0);
             squirt[1] = new Move();
             squirt[1].Create("Bubble", 20, 0, 15, 3, 0);
             imgBack = System.IO.File.ReadAllBytes(Directory.GetCurrentDirectory() + "\\Images\\SquirtleBack.png");
             imgFront = System.IO.File.ReadAllBytes(Directory.GetCurrentDirectory() + "\\Images\\SquirtleFront.png");
-            AllPokemon[1] = new Pokemon();
-            AllPokemon[1].Create("Squirtle", 50, 10, 10, 1, squirt, imgBack, imgFront);
+            AllPokemon[2] = new Pokemon();
+            AllPokemon[2].Create("Squirtle", 50, 10, 10, 3, squirt, imgBack, imgFront);
 
             return SerializePokemon(AllPokemon);
         }

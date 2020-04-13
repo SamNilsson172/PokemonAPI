@@ -276,7 +276,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fightScript: {fileID: 3455773751521605344}
   stateIndex: 1
-  moveIndex: 1
+  selectIndex: 1
 --- !u!1 &1124171743195375704
 GameObject:
   m_ObjectHideFlags: 0
@@ -703,7 +703,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fightScript: {fileID: 3455773751521605344}
   stateIndex: 1
-  moveIndex: 3
+  selectIndex: 3
 --- !u!1 &3455773749884176459
 GameObject:
   m_ObjectHideFlags: 0
@@ -1663,7 +1663,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fightScript: {fileID: 3455773751521605344}
   stateIndex: 1
-  moveIndex: 0
+  selectIndex: 0
 --- !u!1 &5312991002034516302
 GameObject:
   m_ObjectHideFlags: 0
@@ -2214,4 +2214,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fightScript: {fileID: 3455773751521605344}
   stateIndex: 1
-  moveIndex: 2
+  selectIndex: 2

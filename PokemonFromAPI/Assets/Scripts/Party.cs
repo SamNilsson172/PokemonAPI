@@ -12,6 +12,11 @@ public class Party
     public static void TestPokemans()
     {
         playerParty.Add(new PartyPokemon(1, 1, AllPokemon.pokemon[0]));
+        playerParty.Add(new PartyPokemon(1, 1, AllPokemon.pokemon[1]));
+        playerParty.Add(new PartyPokemon(1, 1, AllPokemon.pokemon[2]));
+
+        opponentParty.Add(new PartyPokemon(1, 1, AllPokemon.pokemon[0]));
         opponentParty.Add(new PartyPokemon(1, 1, AllPokemon.pokemon[1]));
+        opponentParty.Add(new PartyPokemon(1, 1, AllPokemon.pokemon[2]));
     }
 }

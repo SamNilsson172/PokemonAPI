@@ -10,7 +10,6 @@ public class Move
     public int pp;
     public int type;
     public int learnAt;
-    public bool learnt;
 
     public void Create(string _name, int _dmg, int _effect, int _pp, int _type, int _learnAt)
     {
@@ -20,7 +19,6 @@ public class Move
         pp = _pp;
         type = _type;
         learnAt = _learnAt;
-        learnt = false;
     }
 
     public string GetName()
@@ -47,16 +45,6 @@ public class Move
     public int GetLearnAt()
     {
         return learnAt;
-    }
-
-    public bool GetLearnt()
-    {
-        return learnt;
-    }
-
-    public void SetLearnt(bool set)
-    {
-        learnt = set;
     }
 }
 

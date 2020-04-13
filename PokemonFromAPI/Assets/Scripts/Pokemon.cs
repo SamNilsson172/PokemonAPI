@@ -130,18 +130,19 @@ public class PartyPokemon : Pokemon
         LearnNewMove();
     }
 
+    bool[] learnt = new bool[1000];
     public void LearnNewMove()
     {
         for (int i = 0; i < learnableMoves.Length; i++)//loop through all learnable moves
         {
-            if (learnableMoves[i].GetLearnAt() <= lvl && !learnableMoves[i].GetLearnt()) //if your highenough level to learn the move and haven't leant it
+            if (learnableMoves[i].GetLearnAt() <= lvl && !learnt[i]) //if your highenough level to learn the move and haven't leant it
             {
                 for (int ii = 0; ii < 4; ii++) //find empty slot in moves
                 {
                     if (moves[ii] == null)
                     {
                         moves[ii] = new PartyMove(learnableMoves[i]); //set slot to move
-                        learnableMoves[i].SetLearnt(true);
+                        learnt[i] = true;
                         break; //don't fill all slots
                     }
                 }// add outcome for if all slots are full
@@ -171,12 +172,12 @@ public class PartyPokemon : Pokemon
         }
     }
 
-    public bool Attack(int move, PartyPokemon defender)
+    public bool Attack(int move, PartyPokemon defender, float effectivness)
     {
         int? dmg = moves[move].Use();
         if (dmg != null) //if all the moves pp is used up
         {
-            defender.CurrentHp -= (float)dmg + CurrentAtk / defender.CurrentDef;
+            defender.CurrentHp -= ((float)dmg + CurrentAtk / defender.CurrentDef) * effectivness;
             return true;
         }
         else return false;
