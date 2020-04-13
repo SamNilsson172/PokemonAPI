@@ -5,8 +5,8 @@ using UnityEngine;
 public class Party
 {
     //do static method here for checking array lenth , pokemon != null
-    public static List<PartyPokemon> playerParty = new List<PartyPokemon>();
-    public static List<PartyPokemon> opponentParty = new List<PartyPokemon>();
+    public static List<PartyPokemon> playerParty = new List<PartyPokemon>(); //all player pokemon, static for ease of use
+    public static List<PartyPokemon> opponentParty = new List<PartyPokemon>(); //all opponent pokemon
 
 
     public static void TestPokemans()

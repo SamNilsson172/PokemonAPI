@@ -12,7 +12,7 @@ namespace PokemonAPI
         public int atk;
         public int type;
         public Move[] learnableMoves;
-        public byte[] imageFront;
+        public byte[] imageFront; //byte array for images
         public byte[] imageBack;
 
 

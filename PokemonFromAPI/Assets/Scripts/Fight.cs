@@ -15,13 +15,13 @@ public class Fight : MonoBehaviour
     private void Start()
     {
         Party.TestPokemans();
-        state = 5;
+        state = 5; //set state to check on start for ui and variables to be defined
     }
 
     void FixedUpdate()
     {
         {
-            switch (state)
+            switch (state) //call methods depending on state, do nothing more than call methods in update for simplicity
             {
                 case (int)State.wait:
                     Wait();
@@ -45,7 +45,6 @@ public class Fight : MonoBehaviour
 
                 case (int)State.check:
                     Check();
-                    state = (int)State.wait;
                     break;
 
                 case (int)State.end:
@@ -56,20 +55,20 @@ public class Fight : MonoBehaviour
         }
     }
 
-    float currentTime;
-    float waitTime;
-    bool waitForInput;
+    float currentTime; //time passed since wait method sarted to be called
+    float waitTime; //time that has to be waited before next input can be inputed
+    bool waitForInput; //if waiting for users input
     void Wait() //wait for specified amount of time
     {
         if (!waitForInput)
         {
             UIWaitDisplay(true); //show waiting UI
             currentTime += Time.deltaTime;
-            if (currentTime >= waitTime)
+            if (currentTime >= waitTime) //done waiting
             {
-                state = nextState;
-                currentTime = 0;
-                if (nextState == (int)State.wait)
+                state = nextState; //go to next state
+                currentTime = 0; //reset for next wait
+                if (nextState == (int)State.wait) //if next state is wait the user needs to press a button to change that
                     waitForInput = true;
             }
 
@@ -77,7 +76,7 @@ public class Fight : MonoBehaviour
         else //waiting for input
         {
             UIWaitDisplay(false); //dont show waiting UI while waiting for input
-            if (nextState != (int)State.wait) //player has inputed
+            if (nextState != (int)State.wait) //user has inputed
             {
                 waitForInput = false;
                 state = nextState;
@@ -85,58 +84,62 @@ public class Fight : MonoBehaviour
         }
     }
 
-    bool myTurn = true;
-    public int atkIndex;
+    bool myTurn = true; //if player is attacking
+    public int atkIndex; //what attack to use, changes from button
     void Atk()
     {
-        Debug.Log("Bruh");
-        //do speed comparison and use other bool for attacking
         if (myTurn)
         {
             playerPokemon.Attack(atkIndex, opponentPokemon);
-            nextState = (int)State.atk;
+            nextState = (int)State.atk; //player attacks first so let opponent attack after
             eventText.text = "Player attacked";
         }
         if (!myTurn)
         {
-            opponentPokemon.Attack(Random.Range(0, opponentPokemon.moves.Length), playerPokemon);
+            opponentPokemon.Attack(Random.Range(0, opponentPokemon.KnownMoves()), playerPokemon); //use random move
             nextState = (int)State.wait;
             eventText.text = "Opponent attacked";
         }
-        myTurn = !myTurn;
+        myTurn = !myTurn; //swap turn after each atk
         waitTime = 1;
         state = (int)State.check; //wait is always run after check
     }
 
     void Run()
     {
-        int random = Random.Range(1, 25);
+        state = (int)State.wait;
+        int random = Random.Range(0, 25);
         int lvlDifference = playerPokemon.lvl - opponentPokemon.lvl;
-        if (random + lvlDifference > 10)
+        if (random + lvlDifference > 10) //sum math for escaping
         {
             state = (int)State.wait;
             waitTime = 1;
             eventText.text = "You ran";
-            nextState = (int)State.end;
+            nextState = (int)State.end; //if succesfull end fight
         }
-        else eventText.text = "failed to run";
+        else
+        {
+            myTurn = false;
+            eventText.text = "failed to run";
+            nextState = (int)State.atk; //if not succesfull let opponent attack
+        }
     }
 
-    PartyPokemon playerPokemon;
+    PartyPokemon playerPokemon; //variables for ease of use
     PartyPokemon opponentPokemon;
     void Check()
     {
         state = (int)State.wait;
         float totOpponentHp = 0;
-        foreach (PartyPokemon p in Party.opponentParty)
+        foreach (PartyPokemon p in Party.opponentParty) //see if opponent has any pokemon with hp left
         {
             totOpponentHp += p.CurrentHp;
-            if (p.CurrentHp > 0)
+            if (p.CurrentHp > 0) //if it dose set active pokemon to it
             {
                 opponentPokemon = p;
             }
         }
-        if (totOpponentHp <= 0)
+        if (totOpponentHp <= 0) //if not end fight
         {
             waitTime = 1;
             eventText.text = "Player won";
@@ -158,7 +161,7 @@ public class Fight : MonoBehaviour
             eventText.text = "Opponent won";
             nextState = (int)State.end;
         }
-        updateUI.UIUpdate(playerPokemon, opponentPokemon);
+        updateUI.UIUpdate(playerPokemon, opponentPokemon); //update UI here because it feels logical
     }
 
     void End()
@@ -166,7 +169,7 @@ public class Fight : MonoBehaviour
         Destroy(gameObject);
     }
 
-    void UIWaitDisplay(bool waiting)
+    void UIWaitDisplay(bool waiting) //what parts of the UI to display
     {
         if (waiting)
         {
