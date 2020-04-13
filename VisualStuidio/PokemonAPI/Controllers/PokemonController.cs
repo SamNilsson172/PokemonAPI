@@ -26,8 +26,8 @@ namespace PokemonAPI.Controllers
             bulb[0].Create("Tackle", 10, 0, 40, 0, 0);
             bulb[1] = new Move();
             bulb[1].Create("VineWhip", 20, 0, 15, 1, 0);
-            byte[] imgBack = System.IO.File.ReadAllBytes("C:\\Users\\sam.nilsson\\Desktop\\Skolarbete\\PokemonAPI\\Images\\BulbasaurBack.png"); //https://stackoverflow.com/questions/8084590/how-to-load-image-from-sql-server-into-picture-box
-            byte[] imgFront = System.IO.File.ReadAllBytes("C:\\Users\\sam.nilsson\\Desktop\\Skolarbete\\PokemonAPI\\Images\\BulbasaurFront.png");
+            byte[] imgBack = System.IO.File.ReadAllBytes(Directory.GetCurrentDirectory() + "\\Images\\BulbasaurBack.png"); //https://stackoverflow.com/questions/8084590/how-to-load-image-from-sql-server-into-picture-box
+            byte[] imgFront = System.IO.File.ReadAllBytes(Directory.GetCurrentDirectory() + "\\Images\\BulbasaurFront.png");
             AllPokemon[0] = new Pokemon();
             AllPokemon[0].Create("Bulbasaur", 50, 10, 10, 1, bulb, imgBack, imgFront);
 
@@ -36,8 +36,8 @@ namespace PokemonAPI.Controllers
             charm[0].Create("Tackle", 10, 0, 40, 1, 0);
             charm[1] = new Move();
             charm[1].Create("Ember", 20, 0, 15, 2, 0);
-            imgBack = System.IO.File.ReadAllBytes("C:\\Users\\sam.nilsson\\Desktop\\Skolarbete\\PokemonAPI\\Images\\CharmanderBack.png");
-            imgFront = System.IO.File.ReadAllBytes("C:\\Users\\sam.nilsson\\Desktop\\Skolarbete\\PokemonAPI\\Images\\CharmanderFront.png");
+            imgBack = System.IO.File.ReadAllBytes(Directory.GetCurrentDirectory() + "\\Images\\CharmanderBack.png");
+            imgFront = System.IO.File.ReadAllBytes(Directory.GetCurrentDirectory() + "\\Images\\CharmanderFront.png");
             AllPokemon[1] = new Pokemon();
             AllPokemon[1].Create("Charmander", 50, 10, 10, 1, charm, imgBack, imgFront);
 
