@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class Fight : MonoBehaviour
 {
     public Text eventText;
+    List<string> eventTexts = new List<string>();
     public Button[] buttons;
     public UpdateUI updateUI;
     public enum State { wait, atk, bag, swap, run, check, end, newMove }
@@ -68,10 +69,12 @@ public class Fight : MonoBehaviour
             {
                 state = nextState; //go to next state
                 currentTime = 0; //reset for next wait
+                eventTexts.Clear();
                 if (nextState == (int)State.wait) //if next state is wait the user needs to press a button to change that
                     waitForInput = true;
             }
-
+            else if (waitTime > 0)
+                eventText.text = eventTexts[(int)(currentTime / (waitTime / eventTexts.Count))]; //sum math to display all strings in event texts during wait time
         }
         else //waiting for input
         {
@@ -90,19 +93,19 @@ public class Fight : MonoBehaviour
     {
         if (myTurn)
         {
+            eventTexts.Add("Players " + playerPokemon.name + " used " + playerPokemon.moves[atkIndex].name);
             playerPokemon.Attack(atkIndex, opponentPokemon, Effectivness(playerPokemon.moves[atkIndex].type, opponentPokemon.type));
             nextState = (int)State.atk; //player attacks first so let opponent attack after
-            eventText.text = "Player attacked";
         }
         if (!myTurn)
         {
             int opponentMove = Random.Range(0, opponentPokemon.KnownMoves()); //use random move
+            eventTexts.Add("Oppoents " + opponentPokemon.name + " used " + opponentPokemon.moves[opponentMove].name);
             opponentPokemon.Attack(opponentMove, playerPokemon, Effectivness(opponentPokemon.moves[opponentMove].type, playerPokemon.type));
             nextState = (int)State.wait;
-            eventText.text = "Opponent attacked";
         }
         myTurn = !myTurn; //swap turn after each atk
-        waitTime = 1;
+        waitTime = 2;
         state = (int)State.check; //wait is always run after check
     }
 
@@ -193,7 +196,7 @@ public class Fight : MonoBehaviour
         switch (atk)
         {
             case (int)Types.normal:
-                effectivness = 1;
+                effectivness = 1; //normal effective
                 break;
 
             case (int)Types.grass:
@@ -223,6 +226,20 @@ public class Fight : MonoBehaviour
                     effectivness = .5f;
                 break;
         }
+
+        switch (effectivness)
+        {
+            case .5f:
+                eventTexts.Add("It's not very effecive...");
+                waitTime += 2;
+                break;
+
+            case 1.5f:
+                eventTexts.Add("It's super effecive!");
+                waitTime += 2;
+                break;
+        }
+
         return effectivness;
     }
 }
